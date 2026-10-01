@@ -1,0 +1,850 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Herramientas Didákticas — Aprende · Experimenta · Crea</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Montserrat',Arial,sans-serif;color:#12234d;background:#fff;overflow-x:hidden;font-size:16px}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+
+:root{
+  --azul:#002F8A;
+  --naranja:#F65001;
+  --amarillo:#FEB702;
+  --turquesa:#019997;
+  --morado:#6545b8;
+  --gris:#f0f4fc;
+  --borde:#dde5f0;
+  --w:1160px;
+}
+#inicio,#nosotros,#categorias,#contacto{scroll-margin-top:90px}
+
+/* TOP BAR */
+.topbar{background:#eef3fb;border-bottom:1px solid #d8e3f2;padding:0}
+.topbar-inner{width:100%;margin:0;padding:0 60px;height:100px;display:flex;align-items:center;justify-content:center;gap:72px}
+.topbar-item{display:flex;align-items:center;gap:18px;color:#12234d}
+.topbar-item img{width:86px;height:86px;object-fit:contain;flex-shrink:0}
+.topbar-item .lbl{font-size:13px;font-weight:400;color:#5a6a88;display:block;margin-bottom:3px}
+.topbar-item .val{font-size:26px;font-weight:800;color:#002F8A;display:block;letter-spacing:-.3px}
+.topbar-item .val.email{font-size:19px}
+.topbar-sep{width:1px;height:60px;background:#c5d3e8}
+
+/* HEADER */
+header{background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.07);position:sticky;top:0;z-index:200;padding:0}
+header .inner{width:100%;height:88px;padding:0 48px;display:flex;align-items:center;gap:0}
+.logo{flex-shrink:0;margin-right:auto}
+.logo img{height:94px;width:auto}
+nav{display:flex;gap:36px;align-items:center;font-weight:400;font-size:13.5px;flex:0 0 auto;justify-content:center;margin:0 36px}
+nav a{color:#12234d;padding-bottom:3px;border-bottom:2px solid transparent;transition:color .2s,border-color .2s;white-space:nowrap;font-weight:400}
+nav a:hover{color:#002F8A;border-color:#002F8A}
+.searchbar{display:flex;align-items:center;gap:8px;border:1.5px solid #dde5f0;border-radius:24px;padding:10px 20px;font-size:13.5px;color:#8a97b0;width:220px;background:#f8faff;cursor:pointer;flex-shrink:0;position:relative}
+.searchbar svg{width:15px;height:15px;stroke:#002F8A;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+
+/* RESULTADOS DE BÚSQUEDA */
+#search-results{
+  position:absolute;
+  top:calc(100% + 8px);
+  right:0;
+  width:360px;
+  background:#fff;
+  border-radius:16px;
+  box-shadow:0 8px 32px rgba(0,47,138,.15);
+  border:1px solid var(--borde);
+  z-index:1000;
+  max-height:420px;
+  overflow-y:auto;
+  display:none;
+}
+#search-results.visible{display:block}
+.sr-item{
+  display:flex;align-items:center;gap:12px;
+  padding:12px 16px;
+  border-bottom:1px solid var(--borde);
+  cursor:pointer;
+  transition:background .15s;
+  text-decoration:none;color:inherit;
+}
+.sr-item:last-child{border:0}
+.sr-item:hover{background:#f0f4fc}
+.sr-item img{width:48px;height:48px;object-fit:contain;border-radius:8px;background:#f0f4fc;flex-shrink:0}
+.sr-item-info{flex:1;min-width:0}
+.sr-item-nombre{font-size:13px;font-weight:700;color:#12234d;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sr-item-cat{font-size:11px;color:#5a6a88;margin-top:2px}
+.sr-empty{padding:20px;text-align:center;color:#8a97b0;font-size:13px}
+
+/* HERO */
+.hero{position:relative;width:100%;overflow:hidden;line-height:0}
+.hero img.bg{width:100%;height:auto;display:block}
+.hero-text{
+  position:absolute;
+  top:0;left:0;
+  width:42%;height:100%;
+  display:flex;flex-direction:column;
+  justify-content:center;
+  padding:0 0 0 172px;
+  padding-top:20px;
+  line-height:1;
+}
+.hero-text h1{font-size:56px;font-weight:900;letter-spacing:-1px;margin-bottom:14px}
+.hero-text h1 .l1{display:block;color:#002F8A;line-height:.95}
+.hero-text h1 .l2{display:block;color:#F65001;line-height:.95}
+.hero-text h1 .l3{display:block;color:#019997;line-height:.95}
+.hero-text p{font-size:14.5px;line-height:1.65;color:#3a4a6b;max-width:360px;margin-bottom:16px}
+.btn-hero{display:inline-flex;align-items:center;gap:10px;background:#002F8A;color:#fff;font-weight:800;font-size:13.5px;border-radius:30px;padding:14px 28px;width:fit-content;transition:background .2s,transform .15s}
+.btn-hero:hover{background:#001f6a;transform:translateY(-2px)}
+
+/* ════════════════════════
+   BENEFITS
+════════════════════════ */
+.benefits-section{
+  padding:0 5%;
+}
+.benefits-card{
+  background:#fff;
+  border-radius:20px;
+  box-shadow:0 6px 28px rgba(0,47,138,.1);
+  padding:24px 32px;
+  margin:40px auto 52px;
+  max-width:var(--w);
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  position:relative;
+  z-index:10;
+}
+.benefit{
+  display:flex;
+  align-items:flex-start;
+  gap:13px;
+  padding:0 16px;
+  border-right:1px solid var(--borde);
+}
+.benefit:first-child{padding-left:0}
+.benefit:last-child{border:0;padding-right:0}
+.bico{
+  width:50px;height:50px;
+  border-radius:50%;
+  overflow:hidden;
+  flex-shrink:0;
+}
+.bico img{width:100%;height:100%;object-fit:cover}
+.btxt{flex:1}
+.btxt b{
+  display:block;font-size:11.5px;font-weight:800;
+  text-transform:uppercase;line-height:1.3;
+  margin-bottom:5px;color:#12234d;
+}
+.btxt small{font-size:11.5px;color:#5a6a88;line-height:1.4;display:block}
+
+/* ════════════════════════
+   CATEGORÍAS
+════════════════════════ */
+.cats-section{padding:0 0 60px}
+.section-head{text-align:center;margin-bottom:10px}
+.section-head h2{
+  font-size:26px;font-weight:900;
+  color:var(--azul);text-transform:uppercase;letter-spacing:.5px;
+}
+.title-line{
+  display:flex;justify-content:center;
+  margin-bottom:36px;
+}
+.title-line span{display:block;height:4px;width:48px}
+
+.cats-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+  padding:0 5%;
+  max-width:calc(var(--w) + 10%);
+  margin:0 auto;
+}
+.cat-card{
+  border:1.5px solid var(--borde);
+  border-radius:20px;
+  overflow:hidden;
+  background:#fff;
+  display:flex;
+  flex-direction:column;
+  text-decoration:none;
+  color:#12234d;
+  transition:box-shadow .25s,transform .25s;
+}
+.cat-card:hover{
+  box-shadow:0 8px 24px rgba(0,47,138,.12);
+  transform:translateY(-3px);
+}
+.cat-img-area{
+  background:#f4f7fc;
+  height:160px;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+  padding:16px;
+}
+.cat-img-area img{
+  max-width:100%;max-height:100%;
+  object-fit:contain;
+  transition:transform .3s;
+}
+.cat-card:hover .cat-img-area img{transform:scale(1.06)}
+.cat-body{
+  padding:14px 16px 16px;
+  display:flex;flex-direction:column;gap:8px;
+  border-top:1px solid var(--borde);
+}
+.cat-icon{
+  width:36px;height:36px;border-radius:50%;
+  overflow:hidden;flex-shrink:0;
+}
+.cat-icon img{width:100%;height:100%;object-fit:cover}
+.cat-card h3{
+  font-size:14px;font-weight:800;
+  line-height:1.2;color:#12234d;margin:0;
+}
+.cat-card p{
+  font-size:11.5px;color:#5a6a88;
+  line-height:1.4;margin:0;
+}
+.cat-cta{
+  display:inline-flex;align-items:center;gap:5px;
+  color:#fff;font-weight:800;font-size:11px;
+  border-radius:20px;padding:8px 14px;
+  align-self:flex-start;
+  transition:opacity .2s;
+}
+.cat-cta:hover{opacity:.85}
+.cc-azul .cat-cta{background:var(--azul)}
+.cc-teal .cat-cta{background:var(--turquesa)}
+.cc-yellow .cat-cta{background:var(--amarillo)}
+.cc-orange .cat-cta{background:var(--naranja)}
+.cc-purple .cat-cta{background:var(--morado)}
+.cc-verde .cat-cta{background:#2e9e5b}
+
+/* ════════════════════════
+   QUIÉNES SOMOS
+════════════════════════ */
+.about-wrap{padding:0 5% 60px}
+.about-card{
+  max-width:var(--w);
+  margin:0 auto;
+  background:var(--gris);
+  border-radius:24px;
+  padding:48px 56px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  align-items:center;
+  gap:32px;
+}
+.about-text h2{
+  font-size:32px;font-weight:900;
+  color:var(--azul);text-transform:uppercase;
+  margin-bottom:8px;
+}
+.about-line{display:flex;margin-bottom:18px}
+.about-line span{display:block;height:4px;width:36px}
+.about-text p{
+  font-size:14px;line-height:1.7;
+  color:#3a4a6b;margin-bottom:10px;
+}
+.about-text strong{color:#12234d}
+.btn-grupo{
+  display:inline-block;
+  background:var(--azul);color:#fff;
+  font-weight:800;font-size:12px;
+  border-radius:6px;padding:11px 20px;
+  margin:4px 0 12px;letter-spacing:.3px;
+}
+.about-map{
+  display:flex;align-items:center;justify-content:center;
+}
+.about-map img{
+  width:100%;max-height:340px;
+  object-fit:contain;
+}
+
+/* ════════════════════════
+   FOOTER
+════════════════════════ */
+footer{
+  background:var(--azul);
+  color:#fff;
+}
+.foot-grid{
+  display:grid;
+  grid-template-columns:1.4fr 1fr 1fr;
+  max-width:var(--w);
+  margin:0 auto;
+  padding:32px 40px;
+  gap:0;
+}
+.foot-col{
+  padding:0 36px;
+  border-right:1px solid rgba(255,255,255,.2);
+}
+.foot-col:first-child{padding-left:0}
+.foot-col:last-child{border:0;padding-right:0}
+.foot-col h3{
+  font-size:12px;font-weight:800;
+  text-transform:uppercase;letter-spacing:.8px;
+  margin-bottom:14px;color:#fff;
+}
+.foot-contact-block{
+  display:flex;align-items:flex-start;gap:10px;
+  margin-bottom:12px;
+}
+.foot-contact-block img{
+  width:22px;height:22px;object-fit:contain;
+  flex-shrink:0;margin-top:2px;
+  filter:brightness(0) invert(1);
+}
+.foot-contact-lines{font-size:12px;line-height:1.8;color:rgba(255,255,255,.9)}
+.foot-contact-lines .line{display:flex;gap:6px}
+.foot-contact-lines .label{opacity:.7;min-width:110px}
+.foot-contact-lines .num{font-weight:700}
+.foot-email{display:flex;align-items:center;gap:10px;margin-top:10px;font-size:12px;color:rgba(255,255,255,.9)}
+.foot-email svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:1.5;flex-shrink:0}
+.foot-dir{display:flex;align-items:flex-start;gap:10px;font-size:13px;line-height:1.6;color:rgba(255,255,255,.9)}
+.foot-dir img{width:20px;height:20px;object-fit:contain;flex-shrink:0;margin-top:2px;filter:brightness(0) invert(1)}
+.socials{display:flex;gap:12px;margin-top:4px;flex-wrap:wrap}
+.socials a{
+  width:48px;height:48px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .15s;overflow:hidden;
+}
+.socials a:hover{transform:scale(1.1)}
+.socials a.fb{background:#1877f2}
+.socials a.ig{background:radial-gradient(circle at 30% 107%,#fdf497 0%,#fdf497 5%,#fd5949 45%,#d6249f 60%,#285aeb 90%)}
+.socials a.tt{background:#000}
+.socials a.yt{background:#ff0000}
+.socials svg{width:22px;height:22px;fill:#fff}
+.foot-mobile-contact{display:none;padding-bottom:24px;margin-bottom:24px;border-bottom:1px solid rgba(255,255,255,.2)}
+.foot-mobile-contact h3{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;margin-bottom:14px;color:#fff}
+.foot-mobile-contact a{display:flex;align-items:center;gap:12px;color:#fff;text-decoration:none;font-size:15px;font-weight:700;margin-bottom:10px}
+.foot-mobile-contact a img{width:32px;height:32px;object-fit:contain;flex-shrink:0}
+@media(max-width:768px){.foot-mobile-contact{display:block}
+.foot-col-title-mobile{display:block!important}
+.foot-col-title-desktop{display:none!important}
+.foot-row-wa-ventas{display:none}
+.foot-row-correo{display:none}}
+.foot-bottom{
+  border-top:1px solid rgba(255,255,255,.15);
+  text-align:center;
+  padding:14px 5%;
+  font-size:12px;opacity:.7;
+}
+
+/* ════════════════════════
+   RESPONSIVE
+════════════════════════ */
+@media(max-width:1024px){
+  .benefits-card{grid-template-columns:repeat(3,1fr);gap:16px}
+  .benefit{padding:0 12px}
+  .cats-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:768px){
+  /* TOPBAR — oculto en móvil */
+  .topbar{display:none}
+
+  /* HEADER — solo logo y buscador centrados */
+  header .inner{flex-wrap:wrap;height:auto;padding:10px 16px;gap:10px;justify-content:center}
+  .logo{margin-right:0;margin-left:0}
+  .logo img{height:82px}
+  nav{display:none}
+  .searchbar{width:100%;min-width:unset;order:2}
+
+  /* HERO */
+  .hero{position:relative}
+  .hero img.bg{width:100%;height:340px;display:block;object-fit:cover;object-position:60% center}
+  .hero-text{
+    position:absolute;top:0;left:0;
+    width:100%;height:100%;
+    padding:20px 16px;
+    background:rgba(255,255,255,.35);
+    justify-content:center;
+  }
+  .hero-text h1{font-size:30px;margin-bottom:8px}
+  .hero-text p{font-size:12px;max-width:55%;margin-bottom:12px}
+  .btn-hero{font-size:12px;padding:11px 20px}
+
+  /* BENEFITS */
+  .benefits-card{grid-template-columns:repeat(2,1fr)}
+  .benefit{border-right:0;border-bottom:1px solid var(--borde);padding:0 0 14px}
+  .benefit:last-child{border:0}
+
+  /* CATS */
+  .cats-grid{grid-template-columns:repeat(2,1fr)}
+
+  /* ABOUT */
+  .about-card{grid-template-columns:1fr;padding:32px 24px}
+  .about-map img{max-height:240px}
+
+  /* FOOTER — mostrar contacto móvil */
+  .foot-grid{grid-template-columns:1fr;gap:0;padding:28px 24px}
+  .foot-col{padding:0 0 24px;border-right:0;border-bottom:1px solid rgba(255,255,255,.15);margin-bottom:24px}
+  .foot-col:last-child{border:0;padding-bottom:0;margin-bottom:0}
+  .foot-mobile-contact{display:block}
+}
+@media(max-width:480px){
+  .hero-text h1{font-size:26px}
+  .hero-text p{font-size:11.5px;max-width:52%}
+  .benefits-card{grid-template-columns:1fr}
+  .cats-grid{grid-template-columns:1fr}
+  .about-card{padding:24px 16px}
+}
+/* ================= SELLO GRUPO DIDÁKTICA ================= */
+.grupo-didaktica-float{position:fixed;right:24px;bottom:42px;width:118px;z-index:180;display:block;transition:transform .2s ease,opacity .2s ease}
+.grupo-didaktica-float:hover{transform:translateY(-3px)}
+.grupo-didaktica-float img{width:100%;height:auto;display:block;object-fit:contain}
+@media(max-width:768px){.grupo-didaktica-float{right:14px;bottom:42px;width:82px}}
+
+
+
+
+
+/* ===== FOOTER CORPORATIVO GRUPO DIDÁKTICA ===== */
+.grupo-footer-band{
+  background:#fff;
+  padding:18px 32px 20px;
+  border-top:1px solid rgba(10,55,130,.10);
+  border-bottom:1px solid rgba(10,55,130,.10);
+}
+.grupo-footer-band .grupo-footer-title{
+  margin:0 0 14px;
+  text-align:center;
+  color:#53698d;
+  font-size:11px;
+  line-height:1.2;
+  font-weight:800;
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+.grupo-footer-band .grupo-footer-logos{
+  width:min(1120px,100%);
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:1fr 1.55fr 1.35fr 1fr;
+  align-items:center;
+}
+.grupo-footer-band .grupo-footer-logo-link{
+  height:76px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:0 28px;
+  box-sizing:border-box;
+  border-left:1px solid #e2e7ef;
+  text-decoration:none;
+}
+.grupo-footer-band .grupo-footer-logo-link:first-child{
+  border-left:0;
+}
+.grupo-footer-band img{
+  display:block;
+  width:auto;
+  max-width:100%;
+  height:auto;
+  max-height:62px;
+  object-fit:contain;
+}
+.grupo-footer-band .logo-didaktica{max-height:61px}
+.grupo-footer-band .logo-herramientas{max-height:62px}
+.grupo-footer-band .logo-praktika{max-height:59px}
+.grupo-footer-band .logo-proteccion{max-height:60px}
+@media(max-width:800px){
+  .grupo-footer-band{padding:17px 12px}
+  .grupo-footer-band .grupo-footer-title{
+    font-size:9px;
+    letter-spacing:1.3px;
+    margin-bottom:10px;
+  }
+  .grupo-footer-band .grupo-footer-logos{
+    grid-template-columns:1fr 1fr;
+  }
+  .grupo-footer-band .grupo-footer-logo-link{
+    height:66px;
+    padding:7px 14px;
+    border-left:0;
+  }
+  .grupo-footer-band .grupo-footer-logo-link:nth-child(n+3){
+    border-top:1px solid #e2e7ef;
+  }
+  .grupo-footer-band img{max-height:50px}
+}
+
+</style>
+</head>
+<body>
+<!-- SELLO GRUPO DIDÁKTICA -->
+<a class="grupo-didaktica-float" href="https://didakticalaboratorios.com/" target="_blank" rel="noopener" aria-label="Grupo Didáktica">
+  <img src="https://res.cloudinary.com/wtfpl6vg/image/upload/v1788033025/SELLO_GRUPO_DIDAKTICA.png" alt="Grupo Didáktica">
+</a>
+
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <a class="topbar-item" href="https://wa.me/51923386737" target="_blank" style="text-decoration:none;color:inherit">
+      <img src="https://res.cloudinary.com/wtfpl6vg/image/upload/v1787950282/ChatGPT_Image_28_ago_2026_03_51_04_p.m..png" alt="WhatsApp">
+      <div>
+        <span class="lbl">WhatsApp de Ventas:</span>
+        <span class="val">923 386 737</span>
+      </div>
+    </a>
+    <div class="topbar-sep"></div>
+    <a class="topbar-item" href="mailto:ventas@herramientasdidakticas.com" style="text-decoration:none;color:inherit">
+      <img src="https://res.cloudinary.com/wtfpl6vg/image/upload/v1787950395/ChatGPT_Image_28_ago_2026_03_53_01_p.m..png" alt="Email">
+      <div>
+        <span class="lbl">Escríbenos:</span>
+        <span class="val email">ventas@herramientasdidakticas.com</span>
+      </div>
+    </a>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="inner">
+    <a href="#inicio" class="logo">
+      <img src="https://res.cloudinary.com/wtfpl6vg/image/upload/v1787948481/ChatGPT_Image_28_ago_2026_03_20_43_p.m..png" alt="Herramientas Didákticas">
+    </a>
+    <nav>
+      <a href="#inicio">Inicio</a>
+      <a href="#nosotros">Nosotros</a>
+      <a href="#categorias"><span class="nav-full">Categoría de Productos</span><span class="nav-short" style="display:none">Categorías</span></a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <div class="searchbar">
+      <input id="search-input" type="text" placeholder="Buscar productos..." style="flex:1;border:none;outline:none;background:transparent;font-size:13.5px;color:#12234d;font-family:inherit" autocomplete="off">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <div id="search-results"></div>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <img class="bg" src="https://res.cloudinary.com/wtfpl6vg/image/upload/v1787952376/ChatGPT_Image_28_ago_2026_04_25_44_p.m..png" alt="Hero Herramientas Didákticas">
+  <div class="hero-text">
+    <h1>
+      <span class="l1">Aprende,</span>
+      <span class="l2">experimenta,</span>
+      <span class="l3">crea.</span>
+    </h1>
+    <p>Descubre herramientas educativas innovadoras para potenciar el aprendizaje y despertar la creatividad en cada etapa del desarrollo.</p>
+    <a class="btn-hero" href="#categorias">VER PRODUCTOS →</a>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<div class="benefits-section">
+  <div class="benefits-card">
+    <div class="benefit">
+      <div class="bico"><img src="https://res.cloudinary.com/wtfpl6vg/image/upload/v1787898247/Material_educativo_especializado.png" alt=""></div>
+      <div class="btxt"><b>Material educativo especializado</b><small>Kits y recursos para cada nivel educativo</small></div>
+    </div>
+    <div class="benefit">
+      <div class="bico"><img src="https://res.cloudinary.com/wtfpl6vg/image/upload/v1787898243/Atenci%C3%B3n_a_instituciones.png" alt=""></div>
+      <div class="btxt"><b>Atención a instituciones</b><small>Propuestas especiales para colegios y universidades</small></div>
+    </div>
+    <div class="benefit">
+      <div class="bico"><img src="https://res.cloudinary.com/wtfpl6vg/image/upload/v1787898243/Embalaje_seguro.png" alt=""></div>
+      <div class="btxt"><b>Embalaje seguro</b><small>Tus pedidos llegan en perfectas condiciones</small></div>
+    </div>
+    <div class="benefit">
+      <div class="bico"><img src="https://res.cloudinary.com/wtfpl6vg/image/upload/v1787898246/Env%C3%ADos_a_todo_el_Per%C3%BA.png" alt=""></div>
+      <div class="btxt"><b>Despachos a todo el país</b><small>Llegamos a cada rincón del Perú</small></div>
+    </div>
+    <div class="benefit">
+      <div class="bico"><img src="https://res.cloudinary.com/wtfpl6vg/image/upload/v1787898242/Asesoria_y_soporte.png" alt=""></div>
+      <div class="btxt"><b>Asesoría y soporte</b><small>Te acompañamos antes y después de tu compra</small></div>
+    </div>
+  </div>
+</div>
+
+<!-- CATEGORÍAS -->
+<section class="cats-section" id="categorias">
+  <div class="section-head">
+    <h2>Explora nuestras categorías</h2>
+  </div>
+  <div class="title-line">
+    <span style="background:var(--azul)"></span>
+    <span style="background:var(--naranja)"></span>
+    <span style="background:var(--turquesa)"></span>
+    <span style="background:var(--amarillo)"></span>
+  </div>
+  <div class="cats-grid">
+
+    <article class="cat-card cc-azul">
+      <div class="cat-img-area"><img src="https://res.cloudinary.com/wtfpl6vg/image/upload/v1787898301/Portada_de_automatizaci%C3%B3n_y_sensores.png" alt="Automatización y Sensores"></div>
+      <div class="cat-body">
+        <div class="cat-icon"><img src="https://res.cloudinary.com/wtfpl6vg/image/upload/v1787898277/%C3%8Dcono_de_automatizacion_y_sensores.png" alt=""></div>
+        <h3>Automatización y Sensores</h3>
+        <p>Experimenta con sensores inteligentes y proyectos automáticos.</p>
+        <a class="cat-cta" href="automatizacion.html">VER PRODUCTOS →</a>
+      </div>
+    </article>
+
+    <article class="cat-card cc-teal">
+      <div class="cat-img-area"><img src="https://res.cloudinary.com/wtfpl6vg/image/upload/v1787903445/ChatGPT_Image_28_ago_2026_02_50_16.png" alt="Coches y Vehículos Robot"></div>
+      <div class="cat-body">
+        <div class="cat-icon"><img src="https://res.cloudinary.com/wtfpl6vg/image/upload/v1787898324/%C3%AFcono_coches_electricos.png" alt=""></div>
+        <h3>Coches y Vehículos Robot</h3>
+        <p>Construye y programa coches robóticos inteligentes.</p>
+        <a class="cat-cta" href="coches.html">VER PRODUCTOS →</a>
+      </div>
+    </article>
+
+    <article class="cat-card cc-yellow">
+      <div class="cat-img-area"><img src="https://res.cloudinary.com/wtfpl6vg/image/upload/v1787898439/Portada_energia_renovables.png" alt="Energía Solar"></div>
+      <div class="cat-body">
+        <div class="cat-icon"><img src="https://res.cloudinary.com/wtfpl6vg/image/upload/v1787898400/%C3%8Dcono_energias_renovables.png" alt=""></div>
+        <h3>Energía Solar</h3>
+        <p>Aprende sobre energía renovable con proyectos solares educativos.</p>
+        <a class="cat-cta" href="energia-solar.html">VER PRODUCTOS →</a>
+      </div>
+    </article>
+
+    <article class="cat-card cc-orange">
+      <div class="cat-img-area"><img src="https://res.cloudinary.com/wtfpl6vg/image/upload/v1787898740/Portada_kits_electronicos.png" alt="Electrónica y Componentes"></div>
+      <div class="cat-body">
+        <div class="cat-icon"><img src="https://res.cloudinary.com/wtfpl6vg/image/upload/v1787898498/%C3%8Dcono_kits_electr%C3%B3nicos.png" alt=""></div>
+        <h3>Electrónica y Componentes</h3>
+        <p>Aprende circuitos, componentes y programación de forma práctica.</p>
+        <a class="cat-cta" href="electronica.html">VER PRODUCTOS →</a>
+      </div>
+    </article>
+
+    <article class="cat-card cc-azul">
+      <div class="cat-img-area"><img src="https://res.cloudinary.com/wtfpl6vg/image/upload/v1787903575/ChatGPT_Image_28_ago_2026_02_52_33.png" alt="Robótica y Programación"></div>
+      <div class="cat-body">
+        <div class="cat-icon"><img src="https://res.cloudinary.com/wtfpl6vg/image/upload/v1787898791/ChatGPT_Image_27_ago_2026_11_00_52_p.m..png" alt=""></div>
+        <h3>Robótica y Programación</h3>
+        <p>Kits Arduino, ESP32 y proyectos de programación para todos los niveles.</p>
+        <a class="cat-cta" href="robotica.html">VER PRODUCTOS →</a>
+      </div>
+    </article>
+
+    <article class="cat-card cc-purple">
+      <div class="cat-img-area"><img src="https://res.cloudinary.com/wtfpl6vg/image/upload/v1787970697/ChatGPT_Image_28_ago_2026_09_31_12_p.m..png" alt="Mecánica e Ingeniería"></div>
+      <div class="cat-body">
+        <div class="cat-icon"><img src="https://res.cloudinary.com/wtfpl6vg/image/upload/v1787970659/ChatGPT_Image_28_ago_2026_09_29_49_p.m..png" alt=""></div>
+        <h3>Mecánica e Ingeniería</h3>
+        <p>Descubre los principios de la física y la ingeniería de forma práctica.</p>
+        <a class="cat-cta" href="mecanica.html">VER PRODUCTOS →</a>
+      </div>
+    </article>
+
+    <article class="cat-card cc-teal">
+      <div class="cat-img-area"><img src="https://res.cloudinary.com/wtfpl6vg/image/upload/v1787898767/Portada_maquetas_y_ciencias.png" alt="Ciencias y Biología"></div>
+      <div class="cat-body">
+        <div class="cat-icon"><img src="https://res.cloudinary.com/wtfpl6vg/image/upload/v1787898765/%C3%AFcono_maquetas_y_ciencias.png" alt=""></div>
+        <h3>Ciencias y Biología</h3>
+        <p>Explora la naturaleza, la vida y los fenómenos científicos.</p>
+        <a class="cat-cta" href="ciencias.html">VER PRODUCTOS →</a>
+      </div>
+    </article>
+
+    <article class="cat-card cc-orange">
+      <div class="cat-img-area"><img src="https://res.cloudinary.com/wtfpl6vg/image/upload/v1787970481/ChatGPT_Image_28_ago_2026_09_16_46_p.m..png" alt="Matemática"></div>
+      <div class="cat-body">
+        <div class="cat-icon"><img src="https://res.cloudinary.com/wtfpl6vg/image/upload/v1787970474/ChatGPT_Image_28_ago_2026_08_46_51_p.m..png" alt=""></div>
+        <h3>Matemática</h3>
+        <p>Materiales manipulativos para aprender matemática de forma divertida.</p>
+        <a class="cat-cta" href="matematica.html">VER PRODUCTOS →</a>
+      </div>
+    </article>
+
+    <article class="cat-card cc-yellow">
+      <div class="cat-img-area"><img src="https://res.cloudinary.com/wtfpl6vg/image/upload/v1787970402/ChatGPT_Image_28_ago_2026_09_16_37_p.m..png" alt="Kits Multidisciplinarios"></div>
+      <div class="cat-body">
+        <div class="cat-icon"><img src="https://res.cloudinary.com/wtfpl6vg/image/upload/v1787970387/ChatGPT_Image_28_ago_2026_08_49_30_p.m..png" alt=""></div>
+        <h3>Kits Multidisciplinarios</h3>
+        <p>Kits que integran múltiples áreas del conocimiento en un solo proyecto.</p>
+        <a class="cat-cta" href="multidisciplinarios.html">VER PRODUCTOS →</a>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+
+
+<!-- QUIÉNES SOMOS -->
+<div class="about-wrap" id="nosotros">
+  <div class="about-card">
+    <div class="about-text">
+      <h2>¿Quiénes somos?</h2>
+      <div class="about-line">
+        <span style="background:var(--azul)"></span>
+        <span style="background:var(--naranja)"></span>
+        <span style="background:var(--turquesa)"></span>
+        <span style="background:var(--amarillo)"></span>
+      </div>
+      <p><strong>Herramientas Didákticas</strong> es una empresa peruana dedicada a la comercialización y desarrollo de material educativo para el aprendizaje práctico y experimental en instituciones educativas.</p>
+      <p>Somos parte del</p>
+      <a class="btn-grupo" href="https://didakticalaboratorios.com/" target="_blank" rel="noopener">GRUPO DIDAKTICA LABORATORIOS</a>
+      <p>Una organización comprometida con brindar soluciones innovadoras que impulsan la calidad educativa en todo el país.</p>
+    </div>
+    <div class="about-map">
+      <img src="https://res.cloudinary.com/wtfpl6vg/image/upload/v1787904324/ChatGPT_Image_28_ago_2026_03_04_49.png" alt="Llegamos a todo el Perú">
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer id="contacto">
+  <div class="foot-grid">
+    <div class="foot-mobile-contact">
+      <h3>Contáctanos</h3>
+      <a href="https://wa.me/51923386737" target="_blank">
+        <img src="https://res.cloudinary.com/wtfpl6vg/image/upload/v1787950282/ChatGPT_Image_28_ago_2026_03_51_04_p.m..png" alt="WhatsApp">
+        923 386 737
+      </a>
+      <a href="mailto:ventas@herramientasdidakticas.com">
+        <img src="https://res.cloudinary.com/wtfpl6vg/image/upload/v1787950395/ChatGPT_Image_28_ago_2026_03_53_01_p.m..png" alt="Correo">
+        ventas@herramientasdidakticas.com
+      </a>
+    </div>
+
+    <div class="foot-col">
+      <h3 class="foot-col-title-desktop">Contáctanos</h3><h3 class="foot-col-title-mobile" style="display:none">Escríbenos</h3>
+      <div class="foot-contact-block">
+        <img src="https://res.cloudinary.com/wtfpl6vg/image/upload/v1787898980/Whastapp.png" alt="WA">
+        <div class="foot-contact-lines">
+          <div class="line foot-row-wa-ventas"><span class="label"><a href="https://wa.me/51923386737" target="_blank" style="color:inherit">WhatsApp de Ventas:</a></span></div>
+          <div class="line"><span class="label">Ventas por Mayor:</span><span class="num"><a href="https://wa.me/51946165798" target="_blank" style="color:inherit">946 165 798</a></span></div>
+          <div class="line"><span class="label">Ventas Tienda:</span><span class="num"><a href="https://wa.me/51923386737" target="_blank" style="color:inherit">923 386 737</a></span></div>
+          <div class="line"><span class="label">Ventas Provincia:</span><span class="num"><a href="https://wa.me/51938823838" target="_blank" style="color:inherit">938 823 838</a></span></div>
+          <div class="line"><span class="label">Ventas Lima:</span><span class="num"><a href="https://wa.me/51944627306" target="_blank" style="color:inherit">944 627 306</a></span></div>
+        </div>
+      </div>
+      <div class="foot-email foot-row-correo">
+        <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+        <a href="mailto:ventas@herramientasdidakticas.com" style="color:inherit">ventas@herramientasdidakticas.com</a>
+      </div>
+    </div>
+
+    <div class="foot-col">
+      <h3>Dirección</h3>
+      <div class="foot-dir">
+        <img src="https://res.cloudinary.com/wtfpl6vg/image/upload/v1787898977/ubicacion.png" alt="Ubicación">
+        <span>Jr. Cañete 564, Interior 41 –<br>Cercado de Lima, Lima, Perú</span>
+      </div>
+    </div>
+
+    <div class="foot-col">
+      <h3>Síguenos</h3>
+      <div class="socials">
+        <a class="fb" href="https://web.facebook.com/didakticalab" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        </a>
+        <a class="ig" href="https://www.instagram.com/didaktica.laboratorios/" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        </a>
+        <a class="tt" href="https://www.tiktok.com/@didaktica.laboratorios" target="_blank" rel="noopener" aria-label="TikTok">
+          <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 106.34 6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/></svg>
+        </a>
+        <a class="yt" href="https://www.youtube.com/channel/UCCp0jkZeokJu_E9iU3cPcXQ" target="_blank" rel="noopener" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" fill="#fff"><path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+<!-- FRANJA CORPORATIVA — GRUPO DIDÁKTICA -->
+<section class="grupo-footer-band" aria-label="Empresas que forman parte del Grupo Didáktica">
+  <h3 class="grupo-footer-title">PARTE DEL GRUPO DIDÁKTICA</h3>
+  <div class="grupo-footer-logos">
+
+    <a class="grupo-footer-logo-link" href="https://didakticalaboratorios.com/" target="_blank" rel="noopener"
+       aria-label="Didáktica Laboratorios">
+      <img class="logo-didaktica"
+           src="https://res.cloudinary.com/wtfpl6vg/image/upload/v1788032509/logo_didaktica_laboratorios_HD_4x.png"
+           alt="Didáktica Laboratorios">
+    </a>
+
+    <a class="grupo-footer-logo-link" href="#inicio"
+       aria-label="Herramientas Didákticas">
+      <img class="logo-herramientas"
+           src="https://res.cloudinary.com/wtfpl6vg/image/upload/v1787948481/ChatGPT_Image_28_ago_2026_03_20_43_p.m..png"
+           alt="Herramientas Didákticas">
+    </a>
+
+    <a class="grupo-footer-logo-link" href="#inicio"
+       aria-label="Práctika Médica">
+      <img class="logo-praktika"
+           src="https://res.cloudinary.com/wtfpl6vg/image/upload/v1787989787/lofo_trasnparente.png"
+           alt="Práctika Médica">
+    </a>
+
+    <a class="grupo-footer-logo-link" href="#"
+       aria-label="Protección Segura">
+      <img class="logo-proteccion"
+           src="https://res.cloudinary.com/wtfpl6vg/image/upload/v1788031906/Logo_protecci%C3%B3n_segura.png"
+           alt="Protección Segura">
+    </a>
+
+  </div>
+</section>
+
+
+
+
+
+
+
+  <div class="foot-bottom">© 2026 Herramientas Didákticas. Todos los derechos reservados.</div>
+</footer>
+
+<script src="productos.js"></script>
+<script>
+(function(){
+  const input = document.getElementById('search-input');
+  const box   = document.getElementById('search-results');
+  if(!input || !box) return;
+
+  const PLACEHOLDER_IMG = 'https://res.cloudinary.com/wtfpl6vg/image/upload/v1787948481/ChatGPT_Image_28_ago_2026_03_20_43_p.m..png';
+
+  function getCatNombre(p){
+    if(Array.isArray(p.categoriaNombre)) return p.categoriaNombre[0];
+    return p.categoriaNombre || '';
+  }
+
+  function render(resultados){
+    if(resultados.length === 0){
+      box.innerHTML = '<div class="sr-empty">No se encontraron productos</div>';
+    } else {
+      box.innerHTML = resultados.slice(0,8).map(p => `
+        <a class="sr-item" href="${p.pagina}">
+          <img src="${p.imagen || PLACEHOLDER_IMG}" alt="${p.nombre}" onerror="this.src='${PLACEHOLDER_IMG}'">
+          <div class="sr-item-info">
+            <div class="sr-item-nombre">${p.nombre}</div>
+            <div class="sr-item-cat">${getCatNombre(p)}</div>
+          </div>
+        </a>
+      `).join('');
+    }
+    box.classList.add('visible');
+  }
+
+  input.addEventListener('input', function(){
+    const t = this.value.trim();
+    if(t.length < 2){ box.classList.remove('visible'); return; }
+    render(buscarProductos(t));
+  });
+
+  document.addEventListener('click', function(e){
+    if(!e.target.closest('.searchbar')) box.classList.remove('visible');
+  });
+
+  input.addEventListener('keydown', function(e){
+    if(e.key === 'Escape') box.classList.remove('visible');
+  });
+})();
+</script>
+</body>
+</html>
